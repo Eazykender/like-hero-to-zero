@@ -40,7 +40,20 @@ public class EmissionRecord {
     
     @Column(name = "co2_emissions_kt", nullable = false, precision = 19, scale = 3)
     private BigDecimal co2EmissionsKt;
+    
+        
+    @ManyToOne
+    @JoinColumn(name = "last_modified_by_id")
+    private Scientist lastModifiedBy;
 
+    public Scientist getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(Scientist lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+          
     public Long getId() {
         return id;
     }
