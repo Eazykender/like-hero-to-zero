@@ -21,9 +21,6 @@
             <property name="jakarta.persistence.jdbc.url"
                       value="jdbc:mysql://localhost:3306/like_hero_to_zero?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC"/>
 
-            <property name="hibernate.dialect"
-                      value="org.hibernate.dialect.MySQLDialect"/>
-
             <property name="hibernate.hbm2ddl.auto"
                       value="update"/>
 

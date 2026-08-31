@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import jakarta.annotation.PreDestroy;
 import jakarta.persistence.EntityManager;
+import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
 /**
  *
  * @author Iskender Dumlu
@@ -53,5 +54,7 @@ public void close() {
     if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
         entityManagerFactory.close();
     }
-}   
+
+    AbandonedConnectionCleanupThread.checkedShutdown();
+}  
 }
