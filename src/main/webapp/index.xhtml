@@ -1,13 +1,52 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    
     <h:head>
         <title>Like Hero To Zero</title>
     </h:head>
+
     <h:body>
         <h1>
-            <h:outputText value="#{publicEmissionController.projectTitle}" />
+            <h:outputText
+                value="#{publicEmissionController.projectTitle}"/>
         </h1>
+
+        <h2>Aktuelle CO₂-Emissionen nach Ländern</h2>
+
+        <h:panelGroup
+            rendered="#{empty publicEmissionController.latestEmissions}">
+            <p>Noch keine Emissionsdaten vorhanden.</p>
+        </h:panelGroup>
+
+        <h:dataTable
+            value="#{publicEmissionController.latestEmissions}"
+            var="emission"
+            rendered="#{not empty publicEmissionController.latestEmissions}"
+            border="1">
+
+            <h:column>
+                <f:facet name="header">Land</f:facet>
+                #{emission.country.name}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">ISO-Code</f:facet>
+                #{emission.country.isoCode}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Jahr</f:facet>
+                #{emission.year}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">CO₂-Emissionen (kt)</f:facet>
+                #{emission.co2EmissionsKt}
+            </h:column>
+
+        </h:dataTable>
     </h:body>
 </html>
