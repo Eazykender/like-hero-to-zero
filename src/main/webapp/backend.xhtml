@@ -58,10 +58,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <h:outputLabel for="year" value="Jahr:"/>
 
                 <h:inputText
-                    id="year"
-                    value="#{backendController.year}"
-                    required="true"
-                    requiredMessage="Bitte ein Jahr eingeben.">
+                        id="year"
+                        value="#{backendController.year}"
+                        required="true"
+                        requiredMessage="Bitte ein Jahr eingeben."
+                        converterMessage="Bitte eine gültige ganze Jahreszahl eingeben."
+                        validatorMessage="Das Jahr muss zwischen 1750 und 2100 liegen.">
 
                     <f:validateLongRange
                         minimum="1750"
@@ -73,10 +75,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     value="CO₂-Emissionen in Kilotonnen:"/>
 
                 <h:inputText
-                    id="emissions"
-                    value="#{backendController.co2EmissionsKt}"
-                    required="true"
-                    requiredMessage="Bitte einen Emissionswert eingeben.">
+                        id="emissions"
+                        value="#{backendController.co2EmissionsKt}"
+                        required="true"
+                        requiredMessage="Bitte einen Emissionswert eingeben."
+                        converterMessage="Bitte einen gültigen Zahlenwert eingeben."
+                        validatorMessage="Der Emissionswert darf nicht negativ sein.">
 
                     <f:validateDoubleRange minimum="0"/>
                 </h:inputText>
