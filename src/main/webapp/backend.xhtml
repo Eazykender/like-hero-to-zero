@@ -8,32 +8,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core">
 
-    <f:metadata>
-        <f:viewAction
-            action="#{authenticationController.checkLogin}"/>
-    </f:metadata>
+<f:metadata>
+        <f:viewAction action="#{authenticationController.checkLogin}"/>
+</f:metadata>
 
-    <h:head>
-        <title>Wissenschaftsbereich – Like Hero To Zero</title>
-    </h:head>
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Wissenschaftsbereich – Like Hero To Zero</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
 
-    <h:body>
-        <h1>Wissenschaftsbereich</h1>
+<h:body>
+    <main class="page backend-page">
 
-        <p>
-            Willkommen,
-            <h:outputText
-                value="#{authenticationController.scientistName}"/>!
-        </p>
-
-        <h2>Emissionswert hinzufügen oder korrigieren</h2>
-
-        <h:form>
+        <header class="page-header">
+            <h1>Wissenschaftsbereich</h1>
             <p>
-                <h:outputLabel
-                    for="country"
-                    value="Land:"/>
-                <br/>
+                Willkommen,
+                <h:outputText
+                    value="#{authenticationController.scientistName}"/>!
+            </p>
+        </header>
+
+        <h:form styleClass="card">
+            <h2>Emissionswert hinzufügen oder korrigieren</h2>
+
+            <div class="form-grid">
+                <h:outputLabel for="country" value="Land:"/>
+
                 <h:selectOneMenu
                     id="country"
                     value="#{backendController.countryId}"
@@ -41,7 +44,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     requiredMessage="Bitte ein Land auswählen.">
 
                     <f:selectItem
-                        itemLabel="Bitte Land auswählen"
+                        itemLabel="Bitte ein Land auswählen"
                         itemValue="#{null}"
                         noSelectionOption="true"/>
 
@@ -51,15 +54,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         itemValue="#{country.id}"
                         itemLabel="#{country.name}"/>
                 </h:selectOneMenu>
-                <br/>
-                <h:message for="country"/>
-            </p>
 
-            <p>
-                <h:outputLabel
-                    for="year"
-                    value="Jahr:"/>
-                <br/>
+                <h:outputLabel for="year" value="Jahr:"/>
+
                 <h:inputText
                     id="year"
                     value="#{backendController.year}"
@@ -67,18 +64,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     requiredMessage="Bitte ein Jahr eingeben.">
 
                     <f:validateLongRange
-                        minimum="1900"
+                        minimum="1750"
                         maximum="2100"/>
                 </h:inputText>
-                <br/>
-                <h:message for="year"/>
-            </p>
 
-            <p>
                 <h:outputLabel
                     for="emissions"
                     value="CO₂-Emissionen in Kilotonnen:"/>
-                <br/>
+
                 <h:inputText
                     id="emissions"
                     value="#{backendController.co2EmissionsKt}"
@@ -87,33 +80,31 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                     <f:validateDoubleRange minimum="0"/>
                 </h:inputText>
-                <br/>
-                <h:message for="emissions"/>
-            </p>
 
-            <h:commandButton
-                value="Speichern"
-                action="#{backendController.save}"/>
+                <h:messages styleClass="message"/>
 
-            <h:panelGroup
-                rendered="#{not empty backendController.message}">
-                <p>
-                    <h:outputText
-                        value="#{backendController.message}"/>
-                </p>
-            </h:panelGroup>
+                <h:commandButton
+                    value="Speichern"
+                    action="#{backendController.save}"/>
+            </div>
+
+            <h:outputText
+                value="#{backendController.message}"
+                rendered="#{not empty backendController.message}"
+                styleClass="message"/>
+
+            <div class="actions">
+                <h:commandButton
+                    value="Abmelden"
+                    action="#{authenticationController.logout}"
+                    immediate="true"/>
+
+                <h:link
+                    outcome="index"
+                    value="Zur öffentlichen Übersicht"/>
+            </div>
         </h:form>
 
-        <h:form>
-            <h:commandButton
-                value="Abmelden"
-                action="#{authenticationController.logout}"/>
-        </h:form>
-
-        <p>
-            <h:link
-                outcome="index"
-                value="Zur öffentlichen Übersicht"/>
-        </p>
-    </h:body>
+    </main>
+</h:body>
 </html>

@@ -7,59 +7,53 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html">
 
-    <h:head>
-        <title>Anmeldung – Like Hero To Zero</title>
-    </h:head>
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Anmeldung – Like Hero To Zero</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
 
-    <h:body>
-        <h1>Anmeldung für Wissenschaftler</h1>
+<h:body>
+    <main class="page login-page">
 
-        <h:form>
-            <p>
-                <h:outputLabel
-                    for="email"
-                    value="E-Mail-Adresse:"/>
-                <br/>
+        <header class="page-header">
+            <h1>Like Hero To Zero</h1>
+            <p>Geschützter Wissenschaftsbereich</p>
+        </header>
+
+        <h:form styleClass="card">
+            <h2>Anmeldung für Wissenschaftler</h2>
+
+            <div class="form-grid">
+                <h:outputLabel for="email" value="E-Mail-Adresse:"/>
                 <h:inputText
                     id="email"
                     value="#{authenticationController.email}"
                     required="true"
-                    requiredMessage="Bitte E-Mail-Adresse eingeben."/>
-                <br/>
-                <h:message for="email"/>
-            </p>
+                    requiredMessage="Bitte eine E-Mail-Adresse eingeben."/>
 
-            <p>
-                <h:outputLabel
-                    for="password"
-                    value="Passwort:"/>
-                <br/>
+                <h:outputLabel for="password" value="Passwort:"/>
                 <h:inputSecret
                     id="password"
                     value="#{authenticationController.password}"
                     required="true"
-                    requiredMessage="Bitte Passwort eingeben."/>
-                <br/>
-                <h:message for="password"/>
-            </p>
+                    requiredMessage="Bitte ein Passwort eingeben."/>
 
-            <h:commandButton
-                value="Anmelden"
-                action="#{authenticationController.login}"/>
+                <h:messages styleClass="message"/>
 
-            <h:panelGroup
-                rendered="#{not empty authenticationController.errorMessage}">
-                <p>
-                    <h:outputText
-                        value="#{authenticationController.errorMessage}"/>
-                </p>
-            </h:panelGroup>
+                <h:commandButton
+                    value="Anmelden"
+                    action="#{authenticationController.login}"/>
+            </div>
+
+            <div class="actions">
+                <h:link
+                    outcome="index"
+                    value="Zur öffentlichen Übersicht"/>
+            </div>
         </h:form>
 
-        <p>
-            <h:link
-                outcome="index"
-                value="Zur öffentlichen Übersicht"/>
-        </p>
-    </h:body>
+    </main>
+</h:body>
 </html>

@@ -5,54 +5,80 @@
       xmlns:f="jakarta.faces.core">
     
     <h:head>
-        <title>Like Hero To Zero</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Like Hero To Zero</title>
+    <h:outputStylesheet library="css" name="style.css"/>
     </h:head>
 
     <h:body>
-        <h1>
-            <h:outputText
-                value="#{publicEmissionController.projectTitle}"/>
-        </h1>
-        
-        <p>
-            <h:link
-                outcome="login"
-                value="Anmeldung für Wissenschaftler"/>
-        </p>
-        
-        <h2>Aktuelle CO₂-Emissionen nach Ländern</h2>
+    <main class="page">
 
-        <h:panelGroup
-            rendered="#{empty publicEmissionController.latestEmissions}">
-            <p>Noch keine Emissionsdaten vorhanden.</p>
-        </h:panelGroup>
+        <header class="page-header">
+            <h1>Like Hero To Zero</h1>
+            <p>Aktuelle CO₂-Emissionen nach Ländern</p>
+        </header>
 
-        <h:dataTable
-            value="#{publicEmissionController.latestEmissions}"
-            var="emission"
-            rendered="#{not empty publicEmissionController.latestEmissions}"
-            border="1">
+        <section class="card">
+            <div class="actions">
+                <h:link outcome="login"
+                        value="Anmeldung für Wissenschaftler"/>
+            </div>
 
-            <h:column>
-                <f:facet name="header">Land</f:facet>
-                #{emission.country.name}
-            </h:column>
+            <h:panelGroup rendered="#{empty publicEmissionController.latestEmissions}">
+                <p>Noch keine Emissionsdaten vorhanden.</p>
+            </h:panelGroup>
 
-            <h:column>
-                <f:facet name="header">ISO-Code</f:facet>
-                #{emission.country.isoCode}
-            </h:column>
+            <h:panelGroup rendered="#{not empty publicEmissionController.latestEmissions}">
+                <div class="table-wrapper">
+                    <h:dataTable
+                        value="#{publicEmissionController.latestEmissions}"
+                        var="emission"
+                        styleClass="emission-table">
 
-            <h:column>
-                <f:facet name="header">Jahr</f:facet>
-                #{emission.year}
-            </h:column>
+                        <h:column>
+                            <f:facet name="header">Land</f:facet>
+                            <h:outputText value="#{emission.country.name}"/>
+                        </h:column>
 
-            <h:column>
-                <f:facet name="header">CO₂-Emissionen (kt)</f:facet>
-                #{emission.co2EmissionsKt}
-            </h:column>
+                        <h:column>
+                            <f:facet name="header">ISO-Code</f:facet>
+                            <h:outputText value="#{emission.country.isoCode}"/>
+                        </h:column>
 
-        </h:dataTable>
+                        <h:column>
+                            <f:facet name="header">Jahr</f:facet>
+                            <h:outputText value="#{emission.year}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">CO₂-Emissionen (kt)</f:facet>
+                            <h:outputText value="#{emission.co2EmissionsKt}">
+                                <f:convertNumber
+                                    locale="de_DE"
+                                    groupingUsed="true"
+                                    minFractionDigits="3"
+                                    maxFractionDigits="3"/>
+                            </h:outputText>
+                        </h:column>
+
+                    </h:dataTable>
+                </div>
+            </h:panelGroup>
+
+            <p class="source-note">
+                Quelle:
+                <h:outputLink
+                    value="https://ourworldindata.org/grapher/annual-co2-emissions-per-country"
+                    target="_blank">
+                    Our World in Data – Annual CO₂ Emissions
+                </h:outputLink>.
+                Die Ausgangswerte wurden von Tonnen in Kilotonnen
+                umgerechnet. Emissionen aus Landnutzungsänderungen
+                sind nicht enthalten.
+            </p>
+        </section>
+
+    </main>
     </h:body>
 </html>
