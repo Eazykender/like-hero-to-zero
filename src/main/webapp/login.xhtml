@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+
+    <h:head>
+        <title>Anmeldung – Like Hero To Zero</title>
+    </h:head>
+
+    <h:body>
+        <h1>Anmeldung für Wissenschaftler</h1>
+
+        <h:form>
+            <p>
+                <h:outputLabel
+                    for="email"
+                    value="E-Mail-Adresse:"/>
+                <br/>
+                <h:inputText
+                    id="email"
+                    value="#{authenticationController.email}"
+                    required="true"
+                    requiredMessage="Bitte E-Mail-Adresse eingeben."/>
+                <br/>
+                <h:message for="email"/>
+            </p>
+
+            <p>
+                <h:outputLabel
+                    for="password"
+                    value="Passwort:"/>
+                <br/>
+                <h:inputSecret
+                    id="password"
+                    value="#{authenticationController.password}"
+                    required="true"
+                    requiredMessage="Bitte Passwort eingeben."/>
+                <br/>
+                <h:message for="password"/>
+            </p>
+
+            <h:commandButton
+                value="Anmelden"
+                action="#{authenticationController.login}"/>
+
+            <h:panelGroup
+                rendered="#{not empty authenticationController.errorMessage}">
+                <p>
+                    <h:outputText
+                        value="#{authenticationController.errorMessage}"/>
+                </p>
+            </h:panelGroup>
+        </h:form>
+
+        <p>
+            <h:link
+                outcome="index"
+                value="Zur öffentlichen Übersicht"/>
+        </p>
+    </h:body>
+</html>

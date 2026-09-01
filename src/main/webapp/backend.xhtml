@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <f:metadata>
+        <f:viewAction
+            action="#{authenticationController.checkLogin}"/>
+    </f:metadata>
+
+    <h:head>
+        <title>Wissenschaftsbereich – Like Hero To Zero</title>
+    </h:head>
+
+    <h:body>
+        <h1>Wissenschaftsbereich</h1>
+
+        <p>
+            Willkommen,
+            <h:outputText
+                value="#{authenticationController.scientistName}"/>!
+        </p>
+
+        <h:form>
+            <h:commandButton
+                value="Abmelden"
+                action="#{authenticationController.logout}"/>
+        </h:form>
+
+        <p>
+            Hier können später Emissionswerte ergänzt
+            oder korrigiert werden.
+        </p>
+    </h:body>
+</html>
