@@ -77,4 +77,14 @@ public class ScientistDao {
             entityManager.close();
         }
     }
+public Scientist findById(Long id) {
+    EntityManager entityManager
+            = persistenceManager.createEntityManager();
+
+    try {
+        return entityManager.find(Scientist.class, id);
+    } finally {
+        entityManager.close();
+    }
+}
 }

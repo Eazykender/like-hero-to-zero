@@ -32,4 +32,14 @@ public class CountryDao {
             entityManager.close();
         }
     }
+public Country findById(Long id) {
+    EntityManager entityManager
+            = persistenceManager.createEntityManager();
+
+    try {
+        return entityManager.find(Country.class, id);
+    } finally {
+        entityManager.close();
+    }
+}
 }

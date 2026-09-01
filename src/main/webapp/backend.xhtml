@@ -26,6 +26,84 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 value="#{authenticationController.scientistName}"/>!
         </p>
 
+        <h2>Emissionswert hinzufügen oder korrigieren</h2>
+
+        <h:form>
+            <p>
+                <h:outputLabel
+                    for="country"
+                    value="Land:"/>
+                <br/>
+                <h:selectOneMenu
+                    id="country"
+                    value="#{backendController.countryId}"
+                    required="true"
+                    requiredMessage="Bitte ein Land auswählen.">
+
+                    <f:selectItem
+                        itemLabel="Bitte Land auswählen"
+                        itemValue="#{null}"
+                        noSelectionOption="true"/>
+
+                    <f:selectItems
+                        value="#{backendController.countries}"
+                        var="country"
+                        itemValue="#{country.id}"
+                        itemLabel="#{country.name}"/>
+                </h:selectOneMenu>
+                <br/>
+                <h:message for="country"/>
+            </p>
+
+            <p>
+                <h:outputLabel
+                    for="year"
+                    value="Jahr:"/>
+                <br/>
+                <h:inputText
+                    id="year"
+                    value="#{backendController.year}"
+                    required="true"
+                    requiredMessage="Bitte ein Jahr eingeben.">
+
+                    <f:validateLongRange
+                        minimum="1900"
+                        maximum="2100"/>
+                </h:inputText>
+                <br/>
+                <h:message for="year"/>
+            </p>
+
+            <p>
+                <h:outputLabel
+                    for="emissions"
+                    value="CO₂-Emissionen in Kilotonnen:"/>
+                <br/>
+                <h:inputText
+                    id="emissions"
+                    value="#{backendController.co2EmissionsKt}"
+                    required="true"
+                    requiredMessage="Bitte einen Emissionswert eingeben.">
+
+                    <f:validateDoubleRange minimum="0"/>
+                </h:inputText>
+                <br/>
+                <h:message for="emissions"/>
+            </p>
+
+            <h:commandButton
+                value="Speichern"
+                action="#{backendController.save}"/>
+
+            <h:panelGroup
+                rendered="#{not empty backendController.message}">
+                <p>
+                    <h:outputText
+                        value="#{backendController.message}"/>
+                </p>
+            </h:panelGroup>
+        </h:form>
+
         <h:form>
             <h:commandButton
                 value="Abmelden"
@@ -33,8 +111,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         </h:form>
 
         <p>
-            Hier können später Emissionswerte ergänzt
-            oder korrigiert werden.
+            <h:link
+                outcome="index"
+                value="Zur öffentlichen Übersicht"/>
         </p>
     </h:body>
 </html>
