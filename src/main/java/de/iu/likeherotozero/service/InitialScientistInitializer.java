@@ -16,6 +16,13 @@ import jakarta.inject.Inject;
 @ApplicationScoped
 public class InitialScientistInitializer {
 
+    private static final String DEMO_NAME = "Tester";
+    private static final String DEMO_EMAIL = "tester@iu.de";
+
+    private static final String DEMO_PASSWORD_HASH
+            = "65536:yqgYFijG31BPKIr6czKGXw==:"
+            + "6BZqXuQF1xMSqVj1VL2pwfEetOWf2a7UJbrtlxUAqJo=";
+
     @Inject
     private ScientistDao scientistDao;
 
@@ -29,6 +36,13 @@ public class InitialScientistInitializer {
             return;
         }
 
+        initializePersonalScientistIfConfigured();
+        initializeDemoScientist();
+
+        initializationChecked = true;
+    }
+
+    private void initializePersonalScientistIfConfigured() {
         String fullName
                 = System.getenv("LHTZ_SCIENTIST_NAME");
         String email
@@ -39,9 +53,7 @@ public class InitialScientistInitializer {
         if (isBlank(fullName)
                 || isBlank(email)
                 || isBlank(password)) {
-            throw new IllegalStateException(
-                    "Die Zugangsdaten des Wissenschaftlers fehlen."
-            );
+            return;
         }
 
         Scientist existingScientist
@@ -57,8 +69,21 @@ public class InitialScientistInitializer {
 
             scientistDao.save(scientist);
         }
+    }
 
-        initializationChecked = true;
+    private void initializeDemoScientist() {
+        Scientist demoScientist
+                = scientistDao.findByEmail(DEMO_EMAIL);
+
+        if (demoScientist == null) {
+            demoScientist = new Scientist();
+            demoScientist.setEmail(DEMO_EMAIL);
+        }
+
+        demoScientist.setFullName(DEMO_NAME);
+        demoScientist.setPasswordHash(DEMO_PASSWORD_HASH);
+
+        scientistDao.save(demoScientist);
     }
 
     private boolean isBlank(String value) {

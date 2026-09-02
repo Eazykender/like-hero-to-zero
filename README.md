@@ -4,6 +4,15 @@
 Webanwendung zur öffentlichen Darstellung von CO₂-Emissionen nach Ländern.  
 Angemeldete Wissenschaftler können Emissionswerte hinzufügen oder korrigieren.
 
+## Zugang
+
+Für die FUnktionsprüfung steht ein vorkonfiguriertes Demokonto zur Verfügung.
+Das Konto wird beim ersten Anmeldeversuch automatisch in der lokalen MySQL-Datenbank angelegt.
+
+- Name: Tester
+- E-Mail-Adresse: tester@iu.de
+- Passwort: LHTZ-Demo-2026!
+
 ## Funktion
 
 - öffentliche Darstellung der jeweils neuesten Emissionswerte
